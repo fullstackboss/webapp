@@ -1,0 +1,25 @@
+body, html{
+	font-family: 'Raleway', sans-serif;
+}
+.web-menu{
+	font-size: 13px;
+	font-weight:light;
+}
+.web-footer p{
+	font-size: 13px;
+	font-weight:300;
+}
+.web-footer a{
+	font-size: 12px;
+	font-weight:300;
+	text-decoration: none;
+	color:brown;
+}
+.fw-bolder{
+	font-size: 28px;
+	font-weight:bold;
+	text-decoration: none;
+	color:#212529;
+
+
+}
