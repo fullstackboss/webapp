@@ -1,61 +1,65 @@
+<script>
+  import Loader from "../components/Loader.svelte";
 
-  <section class="col-sm-12 my-auto">
-    <div class="container row mx-auto py-5">
-      <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-5 text-center mb-3">
-          <h2>Choose Your Plan</h2>
-          <p>Let's choose the package that is best for you and explore it happily and cheerfully.</p>
-        </div>
+  let promesa = ajax();
+  let registros = [];
+  const url = "https://jsonplaceholder.typicode.com/comments";
+  async function ajax() {
+    const respuesta = await fetch(url);
+    registros = await respuesta.json();
+    if (respuesta.ok) {
+      return registros;
+    } else {
+      throw new Error("No se puede conectar");
+    }
+  }
+</script>
+
+<section class="col-sm-12 my-auto">
+  <div class="container row mx-auto py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-5 text-center mb-3">
+        <h2>ACERCA DE NUESTROS EVENTOS</h2>
+        <p>
+          Let's choose the package that is beppily
+          and cheerfully.
+        </p>
       </div>
-      <div class="row h-100 justify-content-center">
-        <div class="col-md-4 pt-4 px-md-2 px-lg-3">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column justify-content-around mx-auto">
-              <div class="text-center pt-5"><img class="img-fluid" src="../assets/img/pricing.png" alt="">
-                <h5 class="my-4">Free Plan</h5>
-              </div>
-              <ul class="list-unstyled">
-                <li class="mb-3"><span class="me-2"><svg class="bi bi-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#2FAB73" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"></path></svg></span>Unlimited Bandwidth </li>
-                  <li class="mb-3"><span class="me-2"><svg class="bi bi-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#2FAB73" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"></path></svg></span>Works on All Devices</li>
-              </ul>
-              <div class="text-center my-5">
-                <h2 class="mb-3">Free</h2><button class="btn btn-outline-danger rounded-pill" type="submit">Sign Up </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 pt-4 px-md-2 px-lg-3">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column justify-content-around mx-auto">
-              <div class="text-center pt-5"><img class="img-fluid" src="../assets/img/pricing.png" alt="">
-                <h5 class="my-4">Standard Plan</h5>
-              </div>
-              <ul class="list-unstyled">
-                 <li class="mb-3"><span class="me-2"><svg class="bi bi-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#2FAB73" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"></path></svg></span>Works on All Devices</li>
-                <li class="mb-3"><span class="me-2"><svg class="bi bi-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#2FAB73" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"></path></svg></span>Connect Anyware</li>
-              </ul>
-              <div class="text-center my-5">
-                <h2 class="mb-3">$9<span class="text-900">/mo</span></h2><button class="btn btn-outline-danger rounded-pill" type="submit">Sign Up </button>
+    </div>
+    <div class="row h-100 justify-content-center">
+      <div class="row row-cols-1 row-cols-lg-4 row-cols-md-2 g-4 justify-content-center">
+        {#await promesa}
+          <Loader />
+        {:then usuarios}
+          {#each usuarios as item}
+            <div class="col">
+              <div class="card h-100">
+                <img
+                  src="https://picsum.photos/200/300?random={item.id}"
+                  height="140"
+                  class="card-img-top"
+                  alt="..."
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{item.name}</h5>
+                  <p class="card-text">{item.body.slice(0, 50)}</p>
+                  <a href={item.url} target="_blank" class="btn btn-danger"
+                    >Ver más</a
+                  >
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted"
+                    ><i class="bi bi-envelope-fill px-1" /> {item.email}</small
+                  >
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col-md-4 pt-4 px-md-2 px-lg-3">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column justify-content-around mx-auto">
-              <div class="text-center pt-5"><img class="img-fluid" src="../assets/img/pricing.png" alt="">
-                <h5 class="my-4">Premium Plan</h5>
-              </div>
-              <ul class="list-unstyled">
-                <li class="mb-3"><span class="me-2"><svg class="bi bi-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#2FAB73" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"></path></svg></span>Unlimited Bandwidth </li>
-                <li class="mb-3"><span class="me-2"><svg class="bi bi-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#2FAB73" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"></path></svg></span>Encrypted Connection</li>
-              </ul>
-              <div class="text-center my-5">
-                <h2 class="mb-3">$12<span class="text-900">/mo</span></h2><button class="btn btn-danger hover-top btn-glow rounded-pill border-0" type="submit">Sign Up</button>
-              </div>
-            </div>
-          </div>
-        </div>
+          {/each}
+        {:catch error}
+          <p>{error}</p>
+        {/await}
       </div>
-    </div><!-- end of .container-->
-  </section>
+    </div>
+  </div>
+  <!-- end of .container-->
+</section>

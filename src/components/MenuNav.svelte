@@ -31,6 +31,9 @@
 			<a class="nav-link" href="/servicios" use:link>+ servicios</a>
 		  </li>
 		  <li class="nav-item">
+			<a class="nav-link" href="/colaboradores" use:link>+ colaboradores</a>
+		  </li>
+		  <li class="nav-item">
 			<a class="nav-link" href="/contacto" use:link>+ contacto</a>
 		  </li>
 		  <li class="nav-item">
